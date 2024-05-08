@@ -149,7 +149,26 @@ class Game():
       degrees2 += 2  # rotate by 7degrees each frame
 
   # Hiển thị tiêu đề "Game Over" và thông báo yêu cầu người chơi nhấn một phím để chơi lại.
-  
+  def displayGameOver(self):
+    gameOverFont = pygame.font.Font('freesansbold.ttf', 150)
+    gameSurf = gameOverFont.render('Game', True, Config.WHITE)
+    overSurf = gameOverFont.render('Over', True, Config.WHITE)
+    gameRect = gameSurf.get_rect()
+    overRect = overSurf.get_rect()
+    gameRect.midtop = (Config.WINDOW_WIDTH / 2, 10)
+    overRect.midtop = (Config.WINDOW_WIDTH / 2, gameRect.height + 10 + 25)
+    self.screen.blit(gameSurf, gameRect)
+    self.screen.blit(overSurf, overRect)
+
+    self.drawPressKeyMgs()
+    pygame.display.update()
+    pygame.time.wait(500)
+
+    self.checkForKeyPress()  # clear out any key presses in the event queue
+    while True:
+      if self.checkForKeyPress():
+        pygame.event.get()  # clear event queue
+        return
 
   # Chạy trò chơi. Hàm này gọi showStartScreen() và sau đó lặp đi lặp lại gameLoop() cho đến khi trò chơi kết thúc.
   def run(self):
