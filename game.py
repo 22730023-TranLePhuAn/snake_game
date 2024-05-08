@@ -119,7 +119,34 @@ class Game():
         return self.resetGame()
 
   # Hiển thị màn hình khởi đầu của trò chơi. Hàm này hiển thị tiêu đề "Snake!" và quay các chữ theo góc để tạo hiệu ứng.
-  
+  def showStartScreen(self):
+    titleFont = pygame.font.Font('freesansbold.ttf', 100)
+    titleSurf1 = titleFont.render('Snake!', True, Config.WHITE, Config.DARKGREEN)
+    titleSurf2 = titleFont.render('Snake!', True, Config.GREEN)
+    degrees1 = 0
+    degrees2 = 0
+    while True:
+      for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+          return
+      self.screen.fill(Config.BG_COLOR)
+
+      rotatedSurf1 = pygame.transform.rotate(titleSurf1, degrees1)
+      rotatedRect1 = rotatedSurf1.get_rect()
+      rotatedRect1.center = (Config.WINDOW_WIDTH / 2, Config.WINDOW_HEIGHT / 2)
+      self.screen.blit(rotatedSurf1, rotatedRect1)
+
+      rotatedSurf2 = pygame.transform.rotate(titleSurf2, degrees2)
+      rotatedRect2 = rotatedSurf2.get_rect()
+      rotatedRect2.center = (Config.WINDOW_WIDTH / 2, Config.WINDOW_HEIGHT / 2)
+      self.screen.blit(rotatedSurf2, rotatedRect2)
+
+      self.drawPressKeyMgs()
+
+      pygame.display.update()
+      self.clock.tick(Config.MENU_FPS)
+      degrees1 += 1  # rotate by 3degrees each frame
+      degrees2 += 2  # rotate by 7degrees each frame
 
   # Hiển thị tiêu đề "Game Over" và thông báo yêu cầu người chơi nhấn một phím để chơi lại.
   
